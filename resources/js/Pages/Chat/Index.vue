@@ -1,21 +1,27 @@
 <template>
-    <div class="flex items-start">
-        <div class="w-1/2 p-4 mr-4 bg-white border border-gray-200">
+    <div class="pt-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">You're chats!</div>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-start border-2 border-sky-gray mt-5 max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white shadow-sm sm:rounded-lg">
+        <div class="w-1/2 p-4 mr-4 bg-white border-solid">
             <h3 class="text-gray-700 mb-4 text-lg">Chats</h3>
             <div v-if="chats">
-                <div v-for="chat in chats" class="pb-4 mb-4 border-b border-gray-300">
+                <div v-for="chat in chats" class="pb-4 mb-4">
                     <Link :href="route('chats.show', chat.id)">
                         <div>
-                            <div>
+                            <div class="border-2 border-sky-gray p-4 rounded-lg">
                                 <div class="flex">
-                                    <p class="mr-2">{{ chat.id }}</p>
                                     <p>{{ chat.title }}</p>
                                 </div>
                                 <div :class="['p-4 flex justify-between items-center',
                                     chat.unreadable_count !== 0 ? 'bg-sky-50' : ''
                                 ]">
                                     <div class="text-sm">
-                                        <p class="text-gray-600">{{ chat.last_message.user_name }}</p>
+                                        <p class="text-gray-600 text-lg mb-3">{{ chat.last_message.user_name }}</p>
                                         <p class="mb-2 text-gray-500">{{ chat.last_message.body }}</p>
                                         <p class="italic text-gray-400">{{ chat.last_message.time }}</p>
                                     </div>
@@ -26,20 +32,16 @@
                                             }}</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </Link>
                 </div>
             </div>
 
         </div>
-        <div class="w-1/2 p-4 bg-white border border-gray-200">
+        <div class="w-1/2 p-4 sm:px-6 lg:px-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="flex items-center  mb-4 justify-between">
                 <h3 class="text-gray-700 text-lg">Users</h3>
-                <a v-if="!isGroup" @click.prevent="isGroup = true"
-                   class="inline-block bg-indigo-600 text-white text-xs px-3 py-2 rounded-lg" href="#">Make group</a>
                 <div v-if="isGroup" class="flex items-center">
                     <input class="h-8 mr-4 border border-gray-300 rounded-full" type="text" placeholder="group title"
                            v-model="title">
@@ -51,12 +53,12 @@
                 </div>
             </div>
             <div v-if="users">
-                <div v-for="user in users" class="flex justify-between items-center pb-4 mb-4 border-b border-gray-300">
+                <div v-for="user in users" class="flex justify-between items-center pb-4 mb-4 border-2 border-sky-gray p-4 rounded-lg">
                     <div class="flex items-center">
                         <p class="mr-2">{{ user.id }}</p>
                         <p class="mr-4">{{ user.name }}</p>
                         <a @click.prevent="store(user.id)"
-                           class="inline-block bg-sky-400 text-white text-xs px-3 py-2 rounded-lg" href="#">Message</a>
+                           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="#">Message</a>
                     </div>
                     <div v-if="isGroup">
                         <input @click="toggleUsers(user.id)" type="checkbox">
